@@ -13,13 +13,34 @@ const repeatedWords = [
   "matter"
 ];
 
-function howManyTimes() {}
+function howManyTimes(arrWords, search) {
+  let word
+  let counter = 0;
+  for (word of arrWords) {
+    if (word === search) {
+      counter++
+    }
+  } return counter
+}
 
 
 
 
 // Iteration 2 | Number Sequence
-function createSequence() {}
+function createSequence(rangeNumber) {
+  const sequence = [];
+  if (rangeNumber === 0) {
+    return sequence
+  }
+  for (let i = 0; i <= rangeNumber; i++) {
+    sequence.push(i)
+  }
+  return sequence
+
+
+}
+
+// console.log(createSequence(0))
 
 
 
@@ -27,22 +48,57 @@ function createSequence() {}
 // Iteration 3 | Multiply for Each
 const numbers = [1, 2, 5, 10, 13, 50];
 
-function multiplyBy() {}
+function multiplyBy(arrNumbers, multiplier) {
+  const multNumbers = [];
+  const multiplyNumbers = function (element) {
+    multNumbers.push(element * multiplier)
+  }
+  arrNumbers.forEach(multiplyNumbers)
+  return multNumbers
+}
 
 
 
 
 // Iteration 4 | Filter Out
-const original = ["cat", "dog", "fish", "bird", "cat", "fish"];
+const original = ["cat", "fish", "dog", "bird", "fish"];
 const toRemove = ["cat", "dog"];
 
-function filterOut() {}
+function filterOut(strArr, filterArr) {
+  if (!strArr.length) {
+    return null
+  }
+  let filteredWords = []
+  for (word of strArr) {
+    if (filterArr.includes(word)) {
+      continue
+    }
+    filteredWords.push(word);
+  } return filteredWords
+
+  // for (wordToFilter of filterArr) {
+  //   while (strArr.includes(wordToFilter)) {
+  //     const indexWord = strArr.indexOf(wordToFilter)
+  //     strArr.splice(indexWord, 1)
+  //   }
+  // }
+  // return strArr
+
+}
+
+// console.log(filterOut(original, toRemove))
 
 
 
 
 // Iteration 5 | Unique Arrays
 const duplicateWords = [
+  "crab",
+  "crab",
+  "crab",
+  "crab",
+  "crab",
+  "crab",
   "crab",
   "poison",
   "contagious",
@@ -56,7 +112,21 @@ const duplicateWords = [
   "bring"
 ];
 
-function uniquifyArray() {}
+function uniquifyArray(arrStr) {
+  if (!arrStr.length) {
+    return null
+  }
+  const filteredArr = []
+  for (word of arrStr) {
+    if (filteredArr.includes(word)) {
+      continue
+    }
+    filteredArr.push(word)
+  }
+  return filteredArr
+}
+
+// console.log(uniquifyArray(duplicateWords))
 
 
 
@@ -85,4 +155,77 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct() {}
+const smallMatrix = [
+  [1, 2, 3, 4, 5],
+  [1, 20, 3, 4, 5],
+  [1, 20, 3, 4, 5],
+  [1, 20, 3, 4, 5],
+  [1, 4, 3, 4, 5]
+]
+
+function greatestProduct(matrixArr) {
+
+  let greatestNRow = []
+  let greatestHCol = []
+  let greatestNMatrix = []
+  let greatestProductMatrix = 0;
+  let greatestProductCol = 0;
+
+  for (let i = 0; i < matrixArr.length; i++) {
+    const row = matrixArr[i]
+    let greatestProductRow = 0;
+    for (let j = 0; j < row.length - 3; j++) {
+      const n1 = row[j]
+      const n2 = row[j + 1]
+      const n3 = row[j + 2]
+      const n4 = row[j + 3]
+      const h1 = matrixArr[j][i]
+      const h2 = matrixArr[j + 1][i]
+      const h3 = matrixArr[j + 2][i]
+      const h4 = matrixArr[j + 3][i]
+
+      let productCol = h1 * h2 * h3 * h4
+      let productRow = n1 * n2 * n3 * n4
+
+
+      if (productRow > greatestProductRow) {
+        greatestProductRow = productRow
+        greatestNRow[0] = n1
+        greatestNRow[1] = n2
+        greatestNRow[2] = n3
+        greatestNRow[3] = n4
+      }
+      if (greatestProductCol < productCol) {
+        greatestProductCol = productCol
+        greatestHCol[0] = h1
+        greatestHCol[1] = h2
+        greatestHCol[2] = h3
+        greatestHCol[3] = h4
+      }
+
+    }
+
+    // console.log(greatestProductCol, greatestHCol)
+    // console.log(greatestProductRow, greatestNRow)
+    // console.log("*----------*")
+
+    if (greatestProductCol > greatestProductRow) {
+      greatestProductMatrix = greatestProductCol
+      greatestNMatrix = greatestHCol
+    } else if (greatestProductRow > greatestProductCol) {
+      greatestProductMatrix = greatestProductRow
+      greatestNMatrix = greatestNRow
+    } else {
+      greatestProductMatrix = greatestProductCol
+      greatestNMatrix = greatestHCol
+    }
+
+
+  }
+  console.log("The greatest product of all the matrix is " + greatestNMatrix + " " + greatestProductMatrix)
+
+  return greatestProductMatrix
+}
+
+
+greatestProduct(smallMatrix)
