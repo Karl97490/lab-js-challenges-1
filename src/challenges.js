@@ -156,76 +156,48 @@ const matrix = [
 ];
 
 const smallMatrix = [
-  [1, 2, 3, 4, 5],
-  [1, 20, 3, 4, 5],
-  [1, 20, 3, 4, 5],
-  [1, 20, 3, 4, 5],
-  [1, 4, 3, 4, 5]
+  [-1, -2, 3, 4, -5],
+  [1, -20, 3, 4, -5],
+  [1, 20, 3, 4, -5],
+  [1, -20, 3, 4, -5],
+  [1, -4, 3, 4, 5]
 ]
 
 function greatestProduct(matrixArr) {
 
-  let greatestNRow = []
-  let greatestHCol = []
-  let greatestNMatrix = []
-  let greatestProductMatrix = 0;
-  let greatestProductCol = 0;
+  let greatestProduct = -Infinity;
+  let productNumbers;
 
   for (let i = 0; i < matrixArr.length; i++) {
-    const row = matrixArr[i]
-    let greatestProductRow = 0;
-    for (let j = 0; j < row.length - 3; j++) {
-      const n1 = row[j]
-      const n2 = row[j + 1]
-      const n3 = row[j + 2]
-      const n4 = row[j + 3]
-      const h1 = matrixArr[j][i]
-      const h2 = matrixArr[j + 1][i]
-      const h3 = matrixArr[j + 2][i]
-      const h4 = matrixArr[j + 3][i]
 
-      let productCol = h1 * h2 * h3 * h4
-      let productRow = n1 * n2 * n3 * n4
+    for (let j = 0; j < matrixArr[i].length - 3; j++) {
+
+      //ROW
+      const RowNs = [matrixArr[i][j], matrixArr[i][j + 1], matrixArr[i][j + 2], matrixArr[i][j + 3]]
+      //COLUMN
+      const ColNs = [matrixArr[j][i], matrixArr[j + 1][i], matrixArr[j + 2][i], matrixArr[j + 3][i]]
+
+      const productRow = RowNs[0] * RowNs[1] * RowNs[2] * RowNs[3]
+      const productCol = ColNs[0] * ColNs[1] * ColNs[2] * ColNs[3]
 
 
-      if (productRow > greatestProductRow) {
-        greatestProductRow = productRow
-        greatestNRow[0] = n1
-        greatestNRow[1] = n2
-        greatestNRow[2] = n3
-        greatestNRow[3] = n4
+      if (productRow > greatestProduct) {
+        greatestProduct = productRow
+        productNumbers = RowNs
       }
-      if (greatestProductCol < productCol) {
-        greatestProductCol = productCol
-        greatestHCol[0] = h1
-        greatestHCol[1] = h2
-        greatestHCol[2] = h3
-        greatestHCol[3] = h4
+      if (productCol > greatestProduct) {
+        greatestProduct = productCol
+        productNumbers = ColNs
       }
 
     }
-
-    // console.log(greatestProductCol, greatestHCol)
-    // console.log(greatestProductRow, greatestNRow)
-    // console.log("*----------*")
-
-    if (greatestProductCol > greatestProductRow) {
-      greatestProductMatrix = greatestProductCol
-      greatestNMatrix = greatestHCol
-    } else if (greatestProductRow > greatestProductCol) {
-      greatestProductMatrix = greatestProductRow
-      greatestNMatrix = greatestNRow
-    } else {
-      greatestProductMatrix = greatestProductCol
-      greatestNMatrix = greatestHCol
-    }
-
 
   }
-  console.log("The greatest product of all the matrix is " + greatestNMatrix + " " + greatestProductMatrix)
 
-  return greatestProductMatrix
+  console.log("The greatest product of all the matrix is " + productNumbers + " " + greatestProduct)
+
+  return greatestProduct
 }
 
 
-greatestProduct(smallMatrix)
+greatestProduct(matrix)
